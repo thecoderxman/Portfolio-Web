@@ -1,0 +1,224 @@
+
+<section>
+ 
+  <div class="container-fluid">
+     
+
+    <div  class="row mt-5 " >
+      <div class="col-xl-10 ml-auto" >
+      <div class="row">
+       
+   <!--2nd graph-->
+    <div class="col-md-6">
+     <h2 > Recent Stock </h2>
+     <h3 class="text-center">
+       AAPL
+     </h3>
+     <canvas id="line-chart1" width="800" height="450"></canvas>
+     <script >
+       
+new Chart(document.getElementById("line-chart1"), {
+  type: 'line',
+  data: {
+    labels:{{no1}},
+    datasets: [{ 
+        data: {{close1}},
+        label: "Stock",
+        borderColor: "black",
+        fill: false
+      }, 
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Stock price at different dates'
+    }
+  }
+});
+     </script>
+   </div>
+   <!--3rd graph-->
+<div class="col-md-6">
+     <h2> Recent stock </h2>
+     <h3 class="text-center">
+       TSLA
+     </h3>
+     <canvas id="line-chart2" width="800" height="450"></canvas>
+     <script >
+       
+new Chart(document.getElementById("line-chart2"), {
+  type: 'line',
+  data: {
+    labels:{{no2}},
+    datasets: [{ 
+        data: {{close2}},
+        label: "Stock",
+        borderColor: "red",
+        fill: false
+      }, 
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Stock price at different dates'
+    }
+  }
+});
+     </script>
+   </div>
+  </div>
+ 
+</div>
+    </div>
+    <div class="row mt-5 mb-5 jumbotron" >
+      <div class="col-xl-10 ml-auto pt-3" style="border: 3px solid black;">
+        <h4>Values of stock in range(Startdate,Enddate)</h4>
+  <form method="POST" class="post-form mt-3">
+    <div class="row">
+    <div class="col-xl-4">
+  <label for="">StartDate:</label>
+   {% csrf_token %} 
+  <input type="date" id="sdate" name="sdate">
+</div>
+<div class="col-xl-4">
+  <label for="">EndDate:</label>
+   {% csrf_token %} 
+  <input type="date" id="edate" name="edate">
+</div>
+ <div class="col-xl-4 ">
+  <label for="">ShareName:</label>
+   {% csrf_token %} 
+  <input type="text" id="s" name="s">
+</div>
+
+  </div>
+  <div class="row text-center">
+  <div class="col-xl-10 mt-4 mb-4" >
+      <input type="submit" class="btn btn-primary">
+  </div>
+  </div>
+</form>
+  </div>
+    </div>
+ <div class="row">
+    <div class="col lg-10 ml-auto">
+       <div class="col-md-10 ml-auto ">
+     <h3> Required Stock values </h3>
+     <h3 class="text-center">
+       {{s}}
+     </h3>
+     <canvas id="line-chart" width="800" height="450"></canvas>
+     <script >
+       
+new Chart(document.getElementById("line-chart"), {
+  type: 'line',
+  data: {
+    labels:{{no}},
+    datasets: [{ 
+        data: {{close}},
+        label: "Stock",
+        borderColor: "orange",
+        fill: false
+      }, 
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Stock price at different dates'
+    }
+  }
+});
+     </script>
+   </div>
+    </div>
+  </div>
+   
+  </div>
+
+  </section>
+<section>
+  <div class="container-fluid ">
+     <div class="row mt-5 jumbotron" >
+      
+      <div class="col-xl-10 ml-auto pb-3 pt-3" style="border: 2px solid black;">
+  <form method="POST" class="post-form">
+    <h4 class=" text-center mb-3">Retrieves stock values from start date to end</h4>
+    <div class="row">
+    <div class="col-xl-4">
+  <label for="">StartDate:</label>
+   {% csrf_token %} 
+  <input type="date" id="sdate1" name="sdate1">
+</div>
+<div class="col-xl-4">
+  <label for="">EndDate:</label>
+   {% csrf_token %} 
+  <input type="date" id="edate1" name="edate1">
+</div>
+ <div class="col-xl-4 ">
+  <label for="">ShareName:</label>
+   {% csrf_token %} 
+  <input type="text" id="sn" name="sn">
+</div>
+
+  </div>
+  <div class="row mt-3 text-center">
+  <div class="col-xl-10 ">
+      <input type="submit" class="btn btn-success " >
+  </div>
+  </div> 
+</form>
+  </div>
+    </div>
+
+
+    <div  class="row mt-5 text-center" >
+      <div class="col-xl-10 ml-auto" style="border: 1px solid grey;">
+     <h1>Data for stock </h1>
+     {{DataFrame3 | safe}}
+  </div>
+    </div>
+  </div>
+
+  </section>
+  
+    <div class="col-md-6 ml-auto mt-6">
+        <h1 class="mb-4">Investments on Stocks</h1>
+      <canvas id="pie-chart1"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+      var config1 = {
+        type: 'pie',
+        data: {
+          datasets: [{
+            data: {{ datap|safe }},
+            backgroundColor: [
+              '#fcbf1e', '#40bad5', '#035aa6', '#120136', '#862a5c'
+            ],
+            label: 'Number of '
+          }],
+          labels: {{ labels|safe }}
+        },
+        options: {
+          responsive: true
+        }
+      };
+
+      window.onload = function() {
+        var ctx1 = document.getElementById('pie-chart1').getContext('2d');
+        window.myPie = new Chart(ctx1, config1);
+      };
+
+    </script>
+    </div>
+  </div>
+</div>
+
+
+
+
+  <!--end of table-->
