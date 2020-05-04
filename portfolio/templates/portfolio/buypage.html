@@ -1,0 +1,226 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>BuyPage</title>
+  <link href="https://fonts.googleapis.com/css?family=Crimson+Pro:400,700,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+</head>
+<style media="screen">
+  body{
+    font-family: 'Crimson Pro',sans-serif;
+  }
+
+  .entered-company{
+    color:red;
+  }
+  
+
+  .card-title{
+    text-decoration: underline;
+  }
+  .card{
+    border: solid #3b6978;
+  }
+
+  .card-body{
+    background-color: #ecfcff;
+  }
+
+  img{
+    border-bottom: solid #3b6978;
+  }
+</style>
+
+<body>
+  <div class="container" style="text-align: center;">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card" style="width: 18rem;">
+          <img src="{% static 'images/futures.jpg' %}" class="card-img-top" height="150">
+          <div class="card-body">
+            <h2>Select Futures</h2>
+            <form method="POST" class="post-form" id="edit_form" >
+               {% csrf_token %}
+             <input type="text" name="futurename" id="futurename" list="choices1" autocomplete="off">
+             <datalist id="choices1">
+               <option value="BAJAJ-AUTO"></option>
+               <option value="ASIANPAINT"></option>
+               <option value="EICHERMOT"></option>
+             </datalist>
+             <br><br>
+             <button type="submit" id="submit_button"class="save btn btn-outline-dark" >Buy Futures</button>
+           </form>
+            <br>
+            <h5 class="card-title">Selected Future</h5>
+            <h3 class="entered-company">{{n1}}</h2>
+            <h2><b>Current Price</b></h2>
+            <h2 style="color:green">$ {{price1}}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card" style="width: 18rem;">
+          <img src="{% static 'images/shares.jpg' %}" class="card-img-top" height="150">
+          <div class="card-body">
+            <h2>Select Shares</h2>
+            <form method="POST" class="post-form" id="edit_form2" >
+               {% csrf_token %}
+             <input type="text" name="stockname" id="stockname" list="choices2" autocomplete="off">
+             <datalist id="choices2">
+               <option value="AAPL"></option>
+               <option value="NFLX"></option>
+               <option value="MSFT"></option>
+               <option value="FB"></option>
+             </datalist>
+             <br><br>
+             <button type="submit" id="submit_button"class="save btn btn-outline-dark" >Buy Stock</button>
+           </form>
+            <br>
+            <h5 class="card-title">Selected Stock</h5>
+            <h3 class="entered-company">{{n2}}</h2>
+            <h2><b>Current Price</b></h2>
+            <h2 style="color:green">$ {{price2}}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card" style="width: 18rem;">
+          <img src="{% static 'images/funds.jpg' %}" class="card-img-top" height="150">
+          <div class="card-body">
+            <h2>Select Funds</h2>
+            <form method="POST" class="post-form " id="edit_form" >
+               {% csrf_token %}
+            <!-- <input type="text" name="stockname" id="stockname">-->
+             <input type="text" id="fundname" name="fundname" list="choices3" autocomplete="off" >
+                  <datalist id="choices3">
+                    <option value="Icici Prudential Life - Balancer Fund"></option>
+                    <option value="Hdfc Standard Life - Balanced Managed Investment Pension"></option>
+                    <option value="The Hartford Midcap Fund Class C"></option>
+                    <option value="Goldman Sachs Growth Opportunities Fund Institutional Class"></option>
+                    <option value="Neuberger Berman Mid Cap Growth Fund Investor Class"></option>
+                  </datalist>
+
+              <br><br>
+               <button type="submit" id="submit_button"class="save btn btn-outline-dark">Buy Funds</button>
+            </form>
+            <br>
+            <h5 class="card-title">Selected Fund</h5>
+            <h3 class="entered-company">{{n3}}</h2>
+            <h2><b>Current Price</b></h2>
+            <h2 style="color:green">$ {{price3}}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <br>
+    <div class="row">
+        <div class="col-lg-4">
+          <div class="card" style="width: 18rem;">
+            <img src="{% static 'images/indices.png' %}" class="card-img-top" height="150">
+            <div class="card-body">
+              <h2>Select Indices</h2>
+              <form method="POST" class="post-form " id="edit_form">
+                {% csrf_token %}
+                <!-- <input type="text" name="stockname" id="stockname">-->
+                <input type="text" id="indicesname" name="indicesname" list="choices4" autocomplete="off">
+                <datalist id="choices4">
+                  <option value="BSE Healthcare"></option>
+                  <option value="BSE Teck"></option>
+                  <option value="BSE IT"></option>
+                  <option value="BNY Mellon India ADR TR"></option>
+                  <option value="NQ US Mid Cap Value"></option>
+                  <option value="DJ Internet"></option>
+                  <option value="DJ Insurance Brokers"></option>
+                </datalist>
+
+                <br><br>
+                <button type="submit" id="submit_button" class="save btn btn-outline-dark">Buy Indice</button>
+              </form>
+              <br>
+              <h5 class="card-title">Selected Indice</h5>
+              <h3 class="entered-company">{{n4}}</h2>
+              <h2><b>Current Price</b></h2>
+              <h2 style="color:green">$ {{price4}}</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card" style="width: 18rem;">
+            <img src="{% static 'images/bonds.jpeg' %}" class="card-img-top" height="150">
+            <div class="card-body">
+              <h2>Select Bonds</h2>
+              <form method="POST" class="post-form " id="edit_form">
+                {% csrf_token %}
+                <!-- <input type="text" name="stockname" id="stockname">-->
+                <input type="text" id="bondsname" name="bondsname" list="choices5" autocomplete="off">
+                <datalist id="choices5">
+                  <option value="India 10Y"></option>
+                  <option value="India 30Y"></option>
+                  <option value="India 24Y"></option>
+                  <option value="India 15Y"></option>
+                  <option value="U.S. 10Y "></option>
+                  <option value="U.S. 7Y "></option>
+                  <option value="U.S. 5Y "></option>
+                  <option value="U.S. 3Y "></option>
+                  <option value="U.S. 2Y "></option>
+                </datalist>
+
+                <br><br>
+                <button type="submit" id="submit_button" class="save btn btn-outline-dark">Buy Bond</button>
+              </form>
+              <br>
+              <h5 class="card-title">Selected Bond</h5>
+              <h3 class="entered-company">{{n5}}</h2>
+              <h2><b>Current Price</b></h2>
+              <h2 style="color:green">$ {{price5}}</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card" style="width: 18rem;">
+            <img src="{% static 'images/commodities.jpg' %}" class="card-img-top" height="150">
+            <div class="card-body">
+              <h2>Select Commodity</h2>
+              <form method="POST" class="post-form " id="edit_form">
+                {% csrf_token %}
+                <!-- <input type="text" name="stockname" id="stockname">-->
+                <input type="text" id="commodityname" name="commodityname" list="choices6" autocomplete="off">
+                <datalist id="choices6">
+                  <option value="Gold"></option>
+                  <option value="Silver"></option>
+                  <option value="Copper"></option>
+                  <option value="Palladium"></option>
+                  <option value="Platinum"></option>
+                  <option value="Xetra-Gold"></option>
+                  <option value="US Cocoa"></option>
+                  <option value="London Wheat"></option>
+                  <option value="Lead"></option>
+                </datalist>
+
+                <br><br>
+                <button type="submit" id="submit_button" class="save btn btn-outline-dark">Buy Commodity</button>
+              </form>
+              <br>
+              <h5 class="card-title">Selected Commodity</h5>
+              <h3 class="entered-company">{{n6}}</h2>
+              <h2><b>Current Price</b></h2>
+              <h2 style="color:green">$ {{price6}}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+</body>
+
+</html>

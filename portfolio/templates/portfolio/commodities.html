@@ -12,7 +12,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="{% static '/css/style.css' %}">
-  <title>Admin Dashboard</title>
+  <title>Commodities</title>
   <style media="screen">
     .headtext {
       color: white;
@@ -59,11 +59,11 @@
 
             <ul class="navbar-nav flex-column mt-4">
               <li class="nav-item"><a href="{% url 'index' %}" class="nav-link text-black p-3 mb-2 current"><i class="fas fa-home text-dark fa-lg mr-3"></i>Dashboard</a></li>
-              <li class="nav-item"><a href="#buystocks" class="nav-link text-black p-3 mb-2 sidebar-link"><i class="fas fa-user text-dark fa-lg mr-3"></i>Buy Stock</a></li>
-              <li class="nav-item"><a href="#purchase-table" class="nav-link text-black p-3 mb-2 sidebar-link"><i class="fas fa-envelope text-dark fa-lg mr-3"></i>Stock History</a></li>
+              <li class="nav-item"><a href="#buystocks" class="nav-link text-black p-3 mb-2 sidebar-link"><i class="fas fa-user text-dark fa-lg mr-3"></i>Buy Indices</a></li>
+              <li class="nav-item"><a href="#purchase-table" class="nav-link text-black p-3 mb-2 sidebar-link"><i class="fas fa-envelope text-dark fa-lg mr-3"></i>Indices History</a></li>
               <li class="nav-item"><a href="#stock-analytics" class="nav-link text-black p-3 mb-2 sidebar-link"><i class="fas fa-chart-line text-dark fa-lg mr-3"></i>Analytics</a></li>
-              <li class="nav-item"><a href="{% url 'bonds' %}" class="nav-link text-black p-3 mb-2 sidebar-link"><i class="fas fa-chart-bar text-dark fa-lg mr-3"></i>Bonds</a></li>
-              <li class="nav-item"><a href="{% url 'funds' %}" class="nav-link text-black p-3 mb-2 sidebar-link"><i class="fas fa-table text-dark fa-lg mr-3"></i>Funds</a></li>
+              <li class="nav-item"><a href="{% url 'bonds' %}" class="nav-link text-black p-3 mb-2 sidebar-link"><i class="fas fa-chart-bar text-dark fa-lg mr-3"></i>bonds</a></li>
+              <li class="nav-item"><a href="#stock-table" class="nav-link text-black p-3 mb-2 sidebar-link"><i class="fas fa-table text-dark fa-lg mr-3"></i>Tables</a></li>
              
             </ul>
           </div>
@@ -202,28 +202,31 @@
         <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
           <div class="row pt-md-5 mt-md-3 mb-5 ">
             <div class=" col-sm-11 mx-auto col-lg-5 p-2 jumbotron"style="border: 1px solid #aaaaaa;border-radius: 5px;">
-                    <h2 class="stock-text pb-3"><u>Buy Stock</u></h2>
+                    <h2 class="stock-text pb-3"><u>Buy Commodities</u></h2>
          
-        <form method="POST" class="post-form" id="edit_form" >
+        <form method="POST" class="post-form " id="edit_form" >
            {% csrf_token %}
-
-        
+        <!-- <input type="text" name="stockname" id="stockname">-->
          <input type="text" id="stockname" name="stockname" list="choices"autocomplete="off" >
               <datalist id="choices">
-                <option value="AAPL"></option>
-                <option value="MSFT"></option>
-                <option value="FB"></option>
-                <option value="NFLX"></option>
+                <option value="Gold"></option>
+                 <option value="Silver"></option>
+                  <option value="Copper"></option>
+                   <option value="Palladium"></option>
+                    <option value="Platinum"></option>
+                     <option value="Xetra-Gold"></option>
+                     <option value="US Cocoa"></option>
+                   <option value="London Wheat"></option>
+                    <option value="Lead"></option>
               </datalist>
-                  <br><br>
-              <button type="submit" id="submit_button"class="save btn btn-outline-dark" action="#purchase-table">Buy stock</button>
-      
+            
+          <br><br>
+           <button type="submit" id="submit_button"class="save btn btn-outline-dark" action="#purchase-table">Buy Commodities</button>
         </form>
-           </div>   
+            </div>  
             <div class="col-lg-5 col-sm-11 mx-auto p-2 jumbotron"style="border: 1px solid #aaaaaa;border-radius: 5px;">
-               <h2 class="mb-4"><u>Entered Stock</u> </h2>
-              <input type="" name="" value="{{n}}"> 
-       
+               <h2 class="mb-4"><u>Entered Commodities</u> </h2>
+       <input type="" name="" value="{{n}}"> 
         <h2 class="mt-2"style="padding-top: 0px"><u>Current Price</u></h2>
         <h2 style="color:green">${{price}}</h2>
           </div>
@@ -239,7 +242,7 @@
         <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
           <div class="row pt-md-5 mt-md-3 mb-5 ">
             <div class=" col-sm-11 mx-auto  p-2 "style="border: 1px solid #aaaaaa;border-radius: 5px;">
-               <h1 class="mb-4">Investments on Stocks</h1>
+               <h1 class="mb-4"><u>Investments on Commodities</u></h1>
       <canvas id="pie-chart1"></canvas>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script>
@@ -280,7 +283,7 @@
         <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
           <div class="row pt-md-5 mt-md-3 mb-5 ">
             <div class=" col-sm-11 mx-auto  p-2 "style="border: 1px solid #aaaaaa;border-radius: 5px;">
-                 <h1 class="table-heading" >Purchase History</h1>
+                 <h1 class="table-heading" ><u>Purchase History of Commodities</u></h1>
         <table class="table table-light table-striped">
           <tr style="background-color:black ;color:white";>
             <th class="headtext">Name</th>
@@ -312,7 +315,7 @@
         <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
           <div class="row pt-md-5 mt-md-3 mb-5 ">
             <div class=" col-sm-12 mx-auto  p-2 "style="border: 2px solid #aaaaaa;border-radius: 5px;">
-                <h4>Graph of stock values in range(Startdate,Enddate)</h4><br>
+                <h4>Values of Commodities in range(Startdate,Enddate)</h4><br>
   <form method="POST" class="post-form mt-3">
     <div class="row">
     <div class="col-xl-4">
@@ -329,11 +332,16 @@
   <label for="">ShareName:</label>
    {% csrf_token %} 
   <input type="text" id="s" name="s" list="choices"autocomplete="off">
-  <datalist id="choices">
-                <option value="AAPL"></option>
-                <option value="MSFT"></option>
-                <option value="FB"></option>
-                <option value="NFLX"></option>
+                <datalist id="choices">
+                <option value="Gold"></option>
+                 <option value="Silver"></option>
+                  <option value="Copper"></option>
+                   <option value="Palladium"></option>
+                    <option value="Platinum"></option>
+                     <option value="Xetra-Gold"></option>
+                     <option value="US Cocoa"></option>
+                   <option value="London Wheat"></option>
+                    <option value="Lead"></option>
               </datalist>
 </div>
 
@@ -351,7 +359,8 @@
     </div>
   </section>
 
-<
+<!--values of stocks in the range-->
+   
   <!--end of values of stocks in the range-->
 <!-- input for graph-->
 
@@ -363,7 +372,7 @@
         <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
           <div class="row pt-md-5 mt-md-3 mb-5 ">
             <div class=" col-sm-11 mx-auto col-lg-11 p-2 "style="border: 1px solid #aaaaaa;border-radius: 5px;">
-               <h3> <u>Graph of Required Fund values </u></h3>
+               <h3> <u>Graph of Required Commodities values </u></h3>
      <h3 class="text-center">
        {{s}}
      </h3>
@@ -430,7 +439,7 @@ var ctx = $("#line-chart");
           <div class="row pt-md-5 mt-md-3 mb-5 ">
             <div class=" col-sm-12 mx-auto  p-2 "style="border: 1px solid #aaaaaa;">
                     <form method="POST" class="post-form">
-    <h4 class=" text-center mb-3">Retrieves stock values from start date to end</h4>
+    <h4 class=" text-center mb-3">Retrieves Commodities values from start date to end</h4>
     <div class="row">
     <div class="col-xl-4">
   <label for="">StartDate:</label>
@@ -446,11 +455,16 @@ var ctx = $("#line-chart");
   <label for="">ShareName:</label>
    {% csrf_token %} 
   <input type="text" id="sn" name="sn" list="choices"autocomplete="off">
-  <datalist id="choices">
-                <option value="AAPL"></option>
-                <option value="MSFT"></option>
-                <option value="FB"></option>
-                <option value="NFLX"></option>
+    <datalist id="choices">
+                <option value="Gold"></option>
+                 <option value="Silver"></option>
+                  <option value="Copper"></option>
+                   <option value="Palladium"></option>
+                    <option value="Platinum"></option>
+                     <option value="Xetra-Gold"></option>
+                     <option value="US Cocoa"></option>
+                   <option value="London Wheat"></option>
+                    <option value="Lead"></option>
               </datalist>
 </div>
 
@@ -466,13 +480,16 @@ var ctx = $("#line-chart");
         </div>
         <div class="row pt-md-5 mt-md-3 mb-5 ">
             <div class=" col-sm-11 mx-auto  p-2 "style="border: 1px solid #aaaaaa;border-radius: 5px;">
-                   <h1>Data for stock </h1>
-                   <center>
+                   <h1><u>Data for Commodities</u> </h1>
+                   <div class="text-align:center">
+                   <center >
      {{DataFrame3 | safe}} </center>
+   </div>
            </div>   
         </div>
       </div>
     </div>
+  </div>
   </section>
 <!--end of input for tables-->
 

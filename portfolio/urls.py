@@ -18,9 +18,16 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index,name='index'), 
+    path('index/', views.index,name='index'), 
+    path('sales/',views.sales, name='sales'),
+    path('',views.dash, name='dash'),
     path('funds/', views.funds, name='funds'),
     path('bonds/', views.bonds, name='bonds'),
+    path('indices/', views.indices, name='indices'),
+    path('commodities/', views.commodities, name='commodities'),
+    path('futures/',views.futures, name='futures'),
+    
+
 ]
 
  

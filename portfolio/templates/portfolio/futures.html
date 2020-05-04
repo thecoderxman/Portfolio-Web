@@ -1,0 +1,481 @@
+{% load static %}
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="title icon" href="images/title-img.png">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+  <link rel="stylesheet" href="{% static '/css/style.css' %}">
+  <title>Futures</title>
+  <style media="screen">
+    .headtext {
+      color: white;
+    }
+
+    .input-row {
+      padding: 20px 0 20px 0;
+    }
+
+    .table-heading {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .dash-text {
+      font-style: oblique;
+      font-weight: 900;
+      color: white;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-md navbar-light">
+    <button class="navbar-toggler ml-auto mb-2 bg-light" type="button" data-toggle="collapse" data-target="#myNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- sidebar -->
+          <div class="col-xl-2 col-lg-3 col-md-4 sidebar fixed-top">
+            <a href="{% url 'index' %}" class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 ">
+              <img class="logo-image" src="{% static 'images/FinIQ_Logo.png' %}" />
+            </a>
+            <div class="bottom-border pb-3">
+
+              <img src="{% static 'images/cust3.jpeg' %}" width="86" height="87" class="rounded-circle  mr-3 ">
+              <a href="#" class="text-dark">Group 5 </a>
+            </div>
+
+            <ul class="navbar-nav flex-column mt-4">
+              <li class="nav-item"><a href="{% url 'index' %}" class="nav-link text-black p-3 mb-2 current"><i class="fas fa-home text-dark fa-lg mr-3"></i>Dashboard</a></li>
+              <li class="nav-item"><a href="#buystocks" class="nav-link text-black p-3 mb-2 sidebar-link"><i class="fas fa-user text-dark fa-lg mr-3"></i>Buy Stock</a></li>
+              <li class="nav-item"><a href="#purchase-table" class="nav-link text-black p-3 mb-2 sidebar-link"><i class="fas fa-envelope text-dark fa-lg mr-3"></i>Stock History</a></li>
+              <li class="nav-item"><a href="#stock-analytics" class="nav-link text-black p-3 mb-2 sidebar-link"><i class="fas fa-chart-line text-dark fa-lg mr-3"></i>Analytics</a></li>
+              <li class="nav-item"><a href="#stock-pie" class="nav-link text-black p-3 mb-2 sidebar-link"><i class="fas fa-chart-bar text-dark fa-lg mr-3"></i>Charts</a></li>
+              <li class="nav-item"><a href="#stock-table" class="nav-link text-black p-3 mb-2 sidebar-link"><i class="fas fa-table text-dark fa-lg mr-3"></i>Tables</a></li>
+
+            </ul>
+          </div>
+          <!-- end of sidebar -->
+
+          <!-- top-nav -->
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto navbar-custom fixed-top py-2 top-navbar">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <h4 class="text-dark  mb-0">Dashboard</h4>
+              </div>
+              <div class="col-md-5">
+                <form>
+                  <div class="input-group">
+                    <input type="text" class="form-control search-input" placeholder="Search...">
+                    <button type="button" class="btn btn-white search-button"><i class="fas fa-search text-dark"></i></button>
+                  </div>
+                </form>
+              </div>
+              <div class="col-md-3">
+                <ul class="navbar-nav">
+                  <li class="nav-item icon-parent"><a href="#" class="nav-link icon-bullet"><i class="fas fa-comments text-muted fa-lg"></i></a></li>
+                                 <div class="dropdown">
+                    <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-bell text-muted fa-lg"></i>
+                    </button>
+                    <div class="dropdown-menu notification" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">Hakuna Matata..... News1ksjjdhskfn</a>
+                      <a class="dropdown-item" href="#">Another action..... News2</a>
+                    </div>
+                  </div>
+                  <li class="nav-item ml-md-auto"><a href="#" class="nav-link" data-toggle="modal" data-target="#sign-out"><i class="fas fa-sign-out-alt text-dark fa-lg"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- end of top-nav -->
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- end of navbar -->
+
+  <!-- modal -->
+  <div class="modal fade" id="sign-out">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Want to leave?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          Press logout to leave
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Stay Here</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end of modal -->
+
+  <!-- cards -->
+  <section>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+          <div class="row pt-md-5 mt-md-3 mb-5">
+            <div class="col-xl-3 col-sm-6 p-2">
+              <div class="card card-common">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <i class="fas fa-shopping-cart fa-3x text-warning"></i>
+                    <div class="text-right text-secondary">
+                      <h6>Investments</h6>
+                      <h5>$ {{rem}}</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 p-2">
+              <div class="card card-common">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <i class="fas fa-money-bill-alt fa-3x text-success"></i>
+                    <div class=" text-right text-secondary">
+                      <h6>Available Assets</h6>
+                      <h5>$ {{amount}}</h5>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 p-2">
+              <div class="card card-common">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <i class="fas fa-users fa-3x text-info"></i>
+                    <div class="text-right text-secondary">
+                      <h6>Clients</h6>
+                      <h5>150</h5>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 p-2">
+              <div class="card card-common">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <i class="fas fa-chart-line fa-3x text-danger"></i>
+                    <div class="text-right text-secondary">
+                      <h6>RM Name</h6>
+                      <h5>Mukesh</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end of cards -->
+
+
+
+
+
+<!-- BUY STOCK -->
+  <section id="buystocks">
+      <div class="container-fluid ">
+        <div class="row text-center ">
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+            <div class="row pt-md-5 mt-md-3 mb-5 ">
+              <div class=" col-sm-11 mx-auto col-lg-5 p-2 jumbotron"style="border: 1px solid #aaaaaa;border-radius: 5px;">
+                      <h2 class="stock-text pb-3"><u>Buy Futures</u></h2>
+
+          <form method="POST" class="post-form" id="edit_form" >
+             {% csrf_token %}
+           <input type="text" name="stockname" id="stockname" list="choices3" autocomplete="off">
+           <datalist id="choices3">
+             <option value="BAJAJ-AUTO"></option>
+             <option value="ASIANPAINT"></option>
+             <option value="EICHERMOT"></option>
+           </datalist>
+
+            <button type="submit" id="submit_button"class="save btn btn-outline-dark" action="#purchase-table">Buy Futures</button>
+            <br><br>
+
+          </form>
+             </div>
+
+              <div class="col-lg-5 col-sm-11 mx-auto p-2 jumbotron"style="border: 1px solid #aaaaaa;border-radius: 5px;">
+                <h2 class="mb-4"><u>Entered Future</u> </h2>
+        <input type="" name="" value="{{enter_name}}">
+          <h2 class="mt-2"style="padding-top: 0px"><u>Current Price</u></h2>
+          <h2 style="color:green">${{price}}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- PIE-CHART -->
+    <section id="stock-pie">
+       <div class="container-fluid ">
+         <div class="row text-center ">
+           <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+             <div class="row pt-md-5 mt-md-3 mb-5 ">
+               <div class=" col-sm-11 mx-auto  p-2 "style="border: 1px solid #aaaaaa;border-radius: 5px;">
+                  <h1 class="mb-4">Investments in Futures</h1>
+         <canvas id="pie-chart1"></canvas>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+       <script>
+         var config1 = {
+           type: 'pie',
+           data: {
+             datasets: [{
+               data: {{ datap|safe }},
+               backgroundColor: [
+                 '#2b2e4a','#e84545','#903749'
+               ],
+               label: 'Number of '
+             }],
+             labels: {{ labels|safe }}
+           },
+           options: {
+             responsive: true
+           }
+         };
+
+         window.onload = function() {
+           var ctx1 = document.getElementById('pie-chart1').getContext('2d');
+           window.myPie = new Chart(ctx1, config1);
+         };
+
+       </script>
+              </div>
+           </div>
+         </div>
+       </div>
+     </section>
+
+
+     <!-- PURCHASE-HISTORY -->
+     <section id="purchase-table">
+         <div class="container-fluid "style="border: 1px solid #aaaaaa;">
+           <div class="row text-center ">
+             <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+               <div class="row pt-md-5 mt-md-3 mb-5 ">
+                 <div class=" col-sm-11 mx-auto  p-2 "style="border: 1px solid #aaaaaa;border-radius: 5px;">
+                      <h1 class="table-heading" >Purchase History in Futures</h1>
+             <table class="table table-light table-striped">
+               <tr style="background-color:black ;color:white";>
+                 <th class="headtext">Name</th>
+                 <th class="headtext">Price</th>
+                 <th class="headtext">Date</th>
+                 <th class="headtext">Time</th>
+                  <th class="headtext">Expiry Date</th>
+                 <th class="headtext">Profit/Loss</th>
+               </tr>
+               {% for item in query_results %}
+               <tr>
+                 <td>{{ item.name }}</td>
+                 <td>{{ item.price }}</td>
+                 <td>{{ item.date_created }}</td>
+                 <td>{{ item.current_time }}</td>
+                  <td>{{ item.expiry_date }}</td>
+                  <td>{{ item.gain_loss }}</td>
+               </tr>
+               {% endfor %}
+             </table>
+                </div>
+             </div>
+           </div>
+         </div>
+       </section>
+
+  <!-- TABLE -->
+  <section id="stock-table">
+      <div class="container-fluid ">
+        <div class="row text-center">
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+            <div class="row pt-md-5 mt-md-3 mb-5 ">
+              <div class=" col-sm-12 mx-auto  p-2 "style="border: 1px solid #aaaaaa;">
+                      <form method="POST" class="post-form">
+      <h4 class=" text-center mb-3">Retrieves Futures values from start date to end date</h4>
+      <div class="row">
+      <div class="col-xl-4">
+    <label for="">StartDate:</label>
+     {% csrf_token %}
+    <input type="date" id="sd" name="sd">
+  </div>
+  <div class="col-xl-4">
+    <label for="">EndDate:</label>
+     {% csrf_token %}
+    <input type="date" id="ed" name="ed">
+  </div>
+   <div class="col-xl-4 ">
+    <label for="">ShareName:</label>
+     {% csrf_token %}
+    <input type="text" id="na" name="na" list="choices2">
+    <datalist id="choices2">
+      <option value="BAJAJ-AUTO"></option>
+      <option value="ASIANPAINT"></option>
+      <option value="EICHERMOT"></option>
+    </datalist>
+  </div>
+
+    </div>
+    <div class="row mt-3 text-center">
+    <div class="col-xl-10 ">
+        <input type="submit" class="btn btn-success " >
+
+    </div>
+    </div>
+  </form>
+             </div>
+          </div>
+          <div class="row pt-md-5 mt-md-3 mb-5 ">
+              <div class=" col-sm-11 mx-auto  p-2 "style="border: 1px solid #aaaaaa;border-radius: 5px;">
+                     <h1>Data for Futures </h1>
+                     <center style="text-align:center;" >
+       {{stock_fut | safe}} </center>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </section>
+
+  <!-- GRAPH -->
+  <section>
+      <div class="container-fluid ">
+        <div class="row text-center ">
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+            <div class="row pt-md-5 mt-md-3 mb-5 ">
+              <div class=" col-sm-12 mx-auto  p-2 "style="border: 2px solid #aaaaaa;border-radius: 5px;">
+                  <h4>Values of Futures in range(Startdate,Enddate)</h4><br>
+    <form method="POST" class="post-form mt-3">
+      <div class="row">
+      <div class="col-xl-4">
+    <label for="">StartDate:</label>
+     {% csrf_token %}
+    <input type="date" id="sdate" name="sd1">
+  </div>
+  <div class="col-xl-4">
+    <label for="">EndDate:</label>
+     {% csrf_token %}
+    <input type="date" id="edate" name="ed1">
+  </div>
+   <div class="col-xl-4 ">
+    <label for="">ShareName:</label>
+     {% csrf_token %}
+    <input type="text" id="na1" name="na1" list="choices">
+    <datalist id="choices">
+      <option value="BAJAJ-AUTO"></option>
+      <option value="ASIANPAINT"></option>
+      <option value="EICHERMOT"></option>
+    </datalist>
+  </div>
+
+    </div>
+    <div class="row text-center">
+    <div class="col-xl-10 mt-4 mb-4" >
+        <input type="submit" class="btn btn-primary">
+    </div>
+    </div>
+  </form>
+             </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+        <div class="container-fluid ">
+          <div class="row text-center ">
+            <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
+              <div class="row pt-md-5 mt-md-3 mb-5 ">
+                <div class=" col-sm-11 mx-auto col-lg-11 p-2 "style="border: 1px solid #aaaaaa;border-radius: 5px;">
+                   <h3> Required Futures <var></var>alues </h3>
+         <h3 class="text-center">
+           {{gname}}
+         </h3>
+         <canvas id="line-chart" width="800" height="450"></canvas>
+         <script >
+
+    var ctx = $("#line-chart");
+
+      //line chart data
+      var data = {
+        labels=["{{ no}}"],
+        datasets: [
+          {
+            label: "Futures",
+            data:["{{fprice}}"],
+            backgroundColor: "blue",
+            borderColor: "lightblue",
+            fill: false,
+            lineTension: 0,
+            radius: 5
+          }
+        ]
+      };
+
+      //options
+      var options = {
+        responsive: true,
+        title: {
+          display: true,
+          position: "top",
+          text: "Line Graph",
+          fontSize: 18,
+          fontColor: "#111"
+        },
+        legend: {
+          display: true,
+          position: "bottom",
+          labels: {
+            fontColor: "#333",
+            fontSize: 16
+          }
+        }
+      };
+
+      //create Chart class object
+      var chart = new Chart(ctx, {
+        type: "line",
+        data: data,
+        options: options
+      });
+         </script>
+               </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  <script src="{% static '/css/js/script.js' %}"></script>
+</body>
+
+</html>
