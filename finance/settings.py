@@ -25,7 +25,7 @@ SECRET_KEY = 'ux^e(f35x17)d#f3jk)1d0dt)rqke3as0ha&h%1gx0ytlc0k5c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['financeg-5.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['assets6.herokuapp.com','127.0.0.1']
 
 
 # Application definition
