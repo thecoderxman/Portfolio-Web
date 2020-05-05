@@ -162,7 +162,7 @@
         <div class="row">
           <!-- sidebar -->
           <div class="col-xl-2 col-lg-3 col-md-4 sidebar fixed-top" style="border-right:2px solid black; ">
-            <a href="{% url 'index' %}" class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 ">
+            <a href="{% url 'dash' %}" class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 ">
               <img class="logo-image" src="{% static 'images/FinIQ_Logo.png' %}" />
             </a>
             <div class="bottom-border pb-3" style="border-color: white;">
@@ -311,7 +311,7 @@
         <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
           <h2 style="padding-bottom:20px; color:#3b6978;"><u>Recently Visited Stocks</u></h2>
           <div class="row pt-md-2  mb-4 ">
-            <div class=" col-md-4 mx-auto col-sm-11 p-2 "style="border: 1px solid #aaaaaa;border-radius: 5px;">
+            <div class=" col-md-10 col-lg-9 mx-auto col-sm-11 p-2 m-2 col-xl-5"style="border: 1px solid #aaaaaa;border-radius: 5px;">
 
      <h3 class="text-center" style="color:green;" >
        NFLX
@@ -340,7 +340,7 @@ new Chart(document.getElementById("line-chart1"), {
 });
      </script>
    </div>
-            <div class="col-md-4 col-sm-11 mx-auto p-2 "style="border: 1px solid #aaaaaa;border-radius: 5px;">
+            <div class="col-md-10 col-lg-9 col-sm-11 mx-auto p-2 m-2 col-xl-5 "style="border: 1px solid #aaaaaa;border-radius: 5px;">
      <h3 class="text-center" style="color:green;">
        MSFT
      </h3>
@@ -375,13 +375,17 @@ new Chart(document.getElementById("line-chart2"), {
 
 <!-- end of recent  stock -->
 
+
+
+
   <section id="stock-pied">
     <div class="container-fluid " style="border-bottom: 1px solid black;">
       <div class="row text-center " style="padding-top:20px;">
         <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
-          <h1 class="text-center" style="color: #3b6978"><u>Pie-charts</u></h1>
+          <h1 class="text-center" style="color: #3b6978"><u>Investments</u></h1>
+           
           <div class="row  mt-md-3  ">
-            <div class="col-md-8 p-3 mx-auto">
+            <div class="col-md-11 col-lg-8 p-2 mx-auto">
             <div class="bd-example p-5 " style="border: 4px solid black;">
   <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators ">
@@ -396,13 +400,21 @@ new Chart(document.getElementById("line-chart2"), {
     <div class="carousel-inner">
       <div class="carousel-item active">
         <!--<img src="{% static 'images/c1.jpg' %}" class="d-block w-100" alt="..."> -->
-         <h1 class="mb-4"><u>Investments on all Assets</u></h1>
+         <h1 class="mb-2"><u>Investments on all Assets</u></h1>
          <br>
-      <canvas id="pie-chart3" ></canvas>
+         <button class="btn btn-dark" id='line'>Line</button>
+         <button class="btn btn-dark" id='bar'>Bar</button>
+         <button class="btn btn-dark" id='doughnut'>Doughnut</button>
+         <button class="btn btn-dark" id='pie'>Pie</button>
+         <br><br>
+      <canvas id="canvas" ></canvas>
       <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script>
+
+
+  // Chart.js modifies the object you pass in. 
       var config3 = {
-        type: 'pie',
+        type: 'doughnut',
         data: {
           datasets: [{
             data: {{ datapinall|safe }},
@@ -417,19 +429,50 @@ new Chart(document.getElementById("line-chart2"), {
           responsive: true
         }
       };
+      var myChart;
 
-window.onload = function() {
-        var ctx3 = document.getElementById('pie-chart3').getContext('2d');
-        window.myPie = new Chart(ctx3, config3);
-        var ctx1 = document.getElementById('pie-chart1').getContext('2d');
-        window.myPie = new Chart(ctx1, config1);
-        var ctx2 = document.getElementById('pie-chart2').getContext('2d');
-        window.myPie = new Chart(ctx2, config2);
-        var ctx4 = document.getElementById('pie-chart4').getContext('2d');
-        window.myPie = new Chart(ctx4, config4);
+$("#line").click(function() {
+  change('line');
+});
+
+$("#bar").click(function() {
+  change('bar');
+});
+$("#doughnut").click(function() {
+  change('doughnut');
+});
+
+$("#pie").click(function() {
+  change('pie');
+});
 
 
-      };
+function change(newType) {
+  var ctx = document.getElementById("canvas").getContext("2d");
+
+  // Remove the old chart and all its event handles
+  if (myChart) {
+    myChart.destroy();
+  }
+
+  // Chart.js modifies the object you pass in. Pass a copy of the object so we can use the original object later
+  var temp = jQuery.extend(true, {}, config3);
+  temp.type = newType;
+  myChart = new Chart(ctx, temp);
+};
+ var ctx = document.getElementById("canvas").getContext("2d");
+
+  // Remove the old chart and all its event handles
+  if (myChart) {
+    myChart.destroy();
+  }
+
+  // Chart.js modifies the object you pass in. Pass a copy of the object so we can use the original object later
+  var temp = jQuery.extend(true, {}, config3);
+  temp.type = 'doughnut';
+  myChart = new Chart(ctx, temp);
+
+
     </script>
         <div class="carousel-caption d-none d-md-block">
         </div>
@@ -456,17 +499,7 @@ window.onload = function() {
           responsive: true
         }
       };
-      window.onload = function() {
-        var ctx3 = document.getElementById('pie-chart3').getContext('2d');
-        window.myPie = new Chart(ctx3, config3);
-        var ctx1 = document.getElementById('pie-chart1').getContext('2d');
-        window.myPie = new Chart(ctx1, config1);
-        var ctx2 = document.getElementById('pie-chart2').getContext('2d');
-        window.myPie = new Chart(ctx2, config2);
-        var ctx4 = document.getElementById('pie-chart4').getContext('2d');
-        window.myPie = new Chart(ctx4, config4);
-
-      };
+     
 
     </script>
         <div class="carousel-caption d-none d-md-block">
@@ -494,17 +527,7 @@ window.onload = function() {
           responsive: true
         }
       };
-      window.onload = function() {
-        var ctx3 = document.getElementById('pie-chart3').getContext('2d');
-        window.myPie = new Chart(ctx3, config3);
-        var ctx1 = document.getElementById('pie-chart1').getContext('2d');
-        window.myPie = new Chart(ctx1, config1);
-        var ctx2 = document.getElementById('pie-chart2').getContext('2d');
-        window.myPie = new Chart(ctx2, config2);
-        var ctx4 = document.getElementById('pie-chart4').getContext('2d');
-        window.myPie = new Chart(ctx4, config4);
-
-};
+      
     </script>
         <div class="carousel-caption d-none d-md-block">
         </div>
@@ -531,18 +554,7 @@ window.onload = function() {
           responsive: true
         }
       };
-        window.onload = function() {
-        var ctx3 = document.getElementById('pie-chart3').getContext('2d');
-        window.myPie = new Chart(ctx3, config3);
-        var ctx1 = document.getElementById('pie-chart1').getContext('2d');
-        window.myPie = new Chart(ctx1, config1);
-        var ctx2 = document.getElementById('pie-chart2').getContext('2d');
-        window.myPie = new Chart(ctx2, config2);
-        var ctx4 = document.getElementById('pie-chart4').getContext('2d');
-        window.myPie = new Chart(ctx4, config4);
-
-
-      };
+       
 
     </script>
         <div class="carousel-caption d-none d-md-block">
@@ -551,7 +563,7 @@ window.onload = function() {
       <div class="carousel-item">
          <h1 class="mb-4"><u>Investments on Funds</u></h1>
            <br>
-      <canvas id="pie-chart5"></canvas>
+      <canvas id="pie-chart5" width="65vw" height="42vh"></canvas>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script>
       var config5 = {
@@ -570,21 +582,7 @@ window.onload = function() {
           responsive: true
         }
       };
-     window.onload = function() {
-        var ctx5 = document.getElementById('pie-chart5').getContext('2d');
-        window.myPie = new Chart(ctx5, config5);
-        var ctx3 = document.getElementById('pie-chart3').getContext('2d');
-        window.myPie = new Chart(ctx3, config3);
-        var ctx1 = document.getElementById('pie-chart1').getContext('2d');
-        window.myPie = new Chart(ctx1, config1);
-        var ctx2 = document.getElementById('pie-chart2').getContext('2d');
-        window.myPie = new Chart(ctx2, config2);
-        var ctx4 = document.getElementById('pie-chart4').getContext('2d');
-        window.myPie = new Chart(ctx4, config4);
-
-
-      };
-
+     
     </script>
         <div class="carousel-caption d-none d-md-block">
         </div>
@@ -612,22 +610,7 @@ window.onload = function() {
           responsive: true
         }
       };
-     window.onload = function() {
-        var ctx6 = document.getElementById('pie-chart6').getContext('2d');
-        window.myPie = new Chart(ctx6, config6);
-        var ctx5 = document.getElementById('pie-chart5').getContext('2d');
-        window.myPie = new Chart(ctx5, config5);
-        var ctx3 = document.getElementById('pie-chart3').getContext('2d');
-        window.myPie = new Chart(ctx3, config3);
-        var ctx1 = document.getElementById('pie-chart1').getContext('2d');
-        window.myPie = new Chart(ctx1, config1);
-        var ctx2 = document.getElementById('pie-chart2').getContext('2d');
-        window.myPie = new Chart(ctx2, config2);
-        var ctx4 = document.getElementById('pie-chart4').getContext('2d');
-        window.myPie = new Chart(ctx4, config4);
-
-
-      };
+    
 
     </script>
         <div class="carousel-caption d-none d-md-block">
@@ -658,22 +641,25 @@ window.onload = function() {
       };
      window.onload = function() {
         var ctx7 = document.getElementById('pie-chart7').getContext('2d');
-        window.myPie = new Chart(ctx7, config7);
+        window.myPie7 = new Chart(ctx7, config7);
         var ctx6 = document.getElementById('pie-chart6').getContext('2d');
-        window.myPie = new Chart(ctx6, config6);
+        window.myPie6 = new Chart(ctx6, config6);
         var ctx5 = document.getElementById('pie-chart5').getContext('2d');
-        window.myPie = new Chart(ctx5, config5);
+        window.myPie5 = new Chart(ctx5, config5);
+        /*
         var ctx3 = document.getElementById('pie-chart3').getContext('2d');
-        window.myPie = new Chart(ctx3, config3);
+        window.myPie3 = new Chart(ctx3, config3);
+        */
         var ctx1 = document.getElementById('pie-chart1').getContext('2d');
-        window.myPie = new Chart(ctx1, config1);
+        window.myPie1 = new Chart(ctx1, config1);
         var ctx2 = document.getElementById('pie-chart2').getContext('2d');
-        window.myPie = new Chart(ctx2, config2);
+        window.myPie2 = new Chart(ctx2, config2);
         var ctx4 = document.getElementById('pie-chart4').getContext('2d');
-        window.myPie = new Chart(ctx4, config4);
+        window.myPie4 = new Chart(ctx4, config4);
       };
 
     </script>
+     
         <div class="carousel-caption d-none d-md-block">
         </div>
       </div>
@@ -1080,7 +1066,7 @@ function ChangeCarList() {
         </div>
       </div>
        <div class="row pt-md-5 mt-md-3 mb-5 " id="g1">
-            <div  class=" col-sm-11 mx-auto  p-2 text-center"style="border: 1px solid #aaaaaa;border-radius: 5px;text-align: center;">
+            <div  class=" col-sm-7 mx-auto  p-2 text-center"style="border: 1px solid #aaaaaa;border-radius: 5px;text-align: center;">
                    <h1 style="color: #3b6978;">Data for Asset-{{v123}} </h1>
                    <center >
      {{DataFrame3 | safe}} </center>
@@ -1094,35 +1080,11 @@ function ChangeCarList() {
       <div class="row text-center mx-auto " style="padding-top:20px;">
         <div class="col-xl-10 col-lg-9 col-md-8 ml-auto">
           <h1 style="padding-bottom:20px; color:#3b6978;"> <u>Buy assets</u></h1>
-          <div class="row pt-md-5 mt-md-3 mb-5 mx-auto">
-            <div class=" col-sm-11 mx-auto col-md-3 p-2">
+          <div class="row pt-md-3 mt-md-3 mb-5 mx-auto">
+            
+           <div class=" col-sm-7 mx-auto col-lg-7 col-md-7 p-2 col-xl-3">
                     <div class="card card1" >
-          <img class="img1" src="{% static 'images/futures.jpg' %}" class="card-img-top" height="150">
-          <div class="card-body card-body1">
-            <h2>Select</h2>
-            <h2> Futures</h2>
-            <form method="POST" class="post-form" id="edit_form" >
-               {% csrf_token %}
-             <input type="text" name="futurename" id="futurename" list="choices1" autocomplete="off">
-             <datalist id="choices1">
-               <option value="BAJAJ-AUTO"></option>
-               <option value="ASIANPAINT"></option>
-               <option value="EICHERMOT"></option>
-             </datalist>
-             <br><br>
-             <button type="submit" id="submit_button"class="save btn btn-outline-dark" >Buy Futures</button>
-           </form>
-            <br>
-            <h5 class="card-title card-title1">Selected Future</h5>
-            <h3 class="entered-company">{{n1}}</h2>
-            <h2><b>Current Price</b></h2>
-            <h2 style="color:green">$ {{price1}}</h2>
-          </div>
-        </div>
-           </div>
-           <div class=" col-sm-11 mx-auto col-md-3 p-2">
-                    <div class="card card1" >
-          <img class="img1" src="{% static 'images/shares.jpg' %}" class="card-img-top" height="150">
+          <img class="img1" src="{% static 'images/shares.jpg' %}" class="card-img-top" height="180vw">
           <div class="card-body card-body1">
             <h2>Select </h2>
             <h2>Shares</h2>
@@ -1140,15 +1102,15 @@ function ChangeCarList() {
            </form>
             <br>
             <h5 class="card-title">Selected Stock</h5>
-            <h3 class="entered-company">{{n2}}</h2>
+            <h3 class="entered-company">{{n2}}</h3>
             <h2><b>Current Price</b></h2>
             <h2 style="color:green">$ {{price2}}</h2>
           </div>
         </div>
            </div>
-           <div class=" col-sm-11 mx-auto col-md-3 p-2">
+           <div class=" col-sm-7 mx-auto col-lg-7 col-md-7 p-2 col-xl-3">
                     <div class="card card1" >
-          <img class="img1 "src="{% static 'images/funds.jpg' %}" class="card-img-top" height="150">
+          <img class="img1 "src="{% static 'images/funds.jpg' %}" class="card-img-top" height="180vw">
           <div class="card-body card-body1">
             <h2>Select</h2>
              <h2>Funds</h2>
@@ -1169,19 +1131,15 @@ function ChangeCarList() {
             </form>
             <br>
             <h5 class="card-title card-title1">Selected Fund</h5>
-            <h3 class="entered-company">{{n3}}</h2>
+            <h3 class="entered-company">{{n3}}</h3>
             <h2><b>Current Price</b></h2>
             <h2 style="color:green">$ {{price3}}</h2>
           </div>
         </div>
            </div>
-        </div>
-
-
-          <div class="row pt-md-5 mt-md-3 mb-5 ">
-            <div class=" col-sm-11 mx-auto col-md-3 p-2">
+            <div class=" col-sm-7 mx-auto col-lg-7 col-md-7 p-2 col-xl-3">
                     <div class="card card1" >
-            <img class="img1" src="{% static 'images/indices.png' %}" class="card-img-top" height="150">
+            <img class="img1" src="{% static 'images/indices.png' %}" class="card-img-top" height="180vw">
             <div class="card-body card-body1">
               <h2>Select </h2>
               <h2>Indices</h2>
@@ -1200,19 +1158,23 @@ function ChangeCarList() {
                 </datalist>
 
                 <br><br>
-                <button type="submit" id="submit_button" class="save btn btn-outline-dark">Buy Indice</button>
+                <button type="submit" id="submit_button" class="save btn btn-outline-dark">Buy Indices</button>
               </form>
               <br>
               <h5 class="card-title card-title1">Selected Indice</h5>
-              <h3 class="entered-company">{{n4}}</h2>
+              <h3 class="entered-company">{{n4}}</h3>
               <h2><b>Current Price</b></h2>
               <h2 style="color:green">$ {{price4}}</h2>
             </div>
           </div>
            </div>
-           <div class=" col-sm-11 mx-auto col-md-3 p-2">
+         </div>
+
+
+           <div class="row  mt-md-3 mb-5 mx-auto">
+           <div class=" col-sm-7 mx-auto col-lg-7 col-md-7 p-2 col-xl-3">
                     <div class="card card1" >
-            <img class="img1" src="{% static 'images/bonds.jpeg' %}" class="card-img-top" height="150">
+            <img class="img1" src="{% static 'images/bonds.jpeg' %}" class="card-img-top" height="180vw">
             <div class="card-body card-body1">
               <h2>Select </h2>
               <h2>Bonds</h2>
@@ -1237,15 +1199,15 @@ function ChangeCarList() {
               </form>
               <br>
               <h5 class="card-title card-title1">Selected Bond</h5>
-              <h3 class="entered-company">{{n5}}</h2>
+              <h3 class="entered-company">{{n5}}</h3>
               <h2><b>Current Price</b></h2>
               <h2 style="color:green">$ {{price5}}</h2>
             </div>
           </div>
            </div>
-           <div class=" col-sm-11 mx-auto col-md-3 p-2">
+           <div class=" col-sm-7 mx-auto col-lg-7 col-md-7 p-2 col-xl-3">
                 <div class="card card1" >
-            <img class="img1" src="{% static 'images/commodities.jpg' %}" class="card-img-top" height="150">
+            <img class="img1" src="{% static 'images/commodities.jpg' %}" class="card-img-top" height="180vw">
             <div class="card-body card-body1">
               <h2>Select </h2>
              <h2> Commodity</h2>
@@ -1270,16 +1232,44 @@ function ChangeCarList() {
               </form>
               <br>
               <h5 class="card-title card-title1">Selected Commodity</h5>
-              <h3 class="entered-company">{{n6}}</h2>
+              <h3 class="entered-company">{{n6}}</h3>
               <h2><b>Current Price</b></h2>
               <h2 style="color:green">$ {{price6}}</h2>
             </div>
           </div>
-           </div>
+        </div>
+        <div class=" col-sm-7 mx-auto col-lg-7 col-md-7 p-2 col-xl-3">
+                    <div class="card card1" >
+          <img class="img1" src="{% static 'images/futures.jpg' %}" class="card-img-top" height="180vw">
+          <div class="card-body card-body1">
+            <h2>Select</h2>
+            <h2> Futures</h2>
+            <form method="POST" class="post-form" id="edit_form" >
+               {% csrf_token %}
+             <input type="text" name="futurename" id="futurename" list="choices1" autocomplete="off">
+             <datalist id="choices1">
+               <option value="BAJAJ-AUTO"></option>
+               <option value="ASIANPAINT"></option>
+               <option value="EICHERMOT"></option>
+             </datalist>
+             <br><br>
+             <button type="submit" id="submit_button"class="save btn btn-outline-dark" >Buy Futures</button>
+           </form>
+            <br>
+            <h5 class="card-title card-title1">Selected Future</h5>
+            <h3 class="entered-company">{{n1}}</h3>
+            <h2><b>Current Price</b></h2>
+            <h2 style="color:green">$ {{price1}}</h2>
+          </div>
         </div>
       </div>
+      </div>
     </div>
-  </section>
+  </div>
+</div>
+</section>
+
+          
 <!--
 <section>
     <div class="container-fluid "style="border: 1px solid #aaaaaa;">
@@ -1306,3 +1296,4 @@ end of responsive template-->
 </body>
 
 </html>
+
